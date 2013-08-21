@@ -100,7 +100,7 @@
                 <div class="row" style="margin: 0">
                     <div class="span12" style="margin: 0">
                         <hr/>
-                        &copy; 2012 BubbleSMS 
+                        &copy; 2013 BubbleSMS 
                         <div class="pull-right" style="padding: 0">
                             <a href="#">Home</a> <a href="#">Buy Ebooks</a> <a href="#">Contact Us</a> <a href="#">Terms & Policies</a>
                         </div>
