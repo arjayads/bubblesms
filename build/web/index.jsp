@@ -21,21 +21,44 @@
             function initialize() {
                 var feed = new google.feeds.Feed("http://www.phcorner.net/forums/-/index.rss");
                 feed.load(function(result) {
-                    if (!result.error) {
-                        console.log(result.feed);
+                    if (!result.error) { 
                         for (var i = 0; i < result.feed.entries.length; i++) {
-                            var entry = result.feed.entries[i];
+                            var entry = result.feed.entries[i]; 
+                            var publishedDate = document.createTextNode(entry.publishedDate);
                             var title = document.createTextNode(entry.title);
                             var link = document.createTextNode(entry.link);
-                            var contentSnippet = entry.contentSnippet;
-                            $("#feeddiv").append('<a href="' + link.textContent + '" target="_blank">' + title.textContent + '</a><br/>');
-                             $("#feeddiv").append(contentSnippet + "<br/><br/>");
+                            var contentSnippet = entry.contentSnippet; 
+                           
+                            $("#feeddiv").append('<a style="font-size: 15px;" href="' + link.textContent + '" target="_blank">' + title.textContent + '</a><br/>');
+                            $("#feeddiv").append('<div style="font-size: 10px;">' + publishedDate.textContent.substring(0, publishedDate.textContent.length-5) + '</div>'); 
+                            $("#feeddiv").append('<div style="float: left; padding-right: 5px"><a href="' + 
+                                    link.textContent + 
+                                    '" target="_blank"><img id="img_'+i+'"style="height:50px;" src="" /></a></div>');  
+                
+                            $("#feeddiv").append('<div>' + contentSnippet + "</div>");
+                            if ((i+1) < result.feed.entries.length)
+                            { 
+                                $("#feeddiv").append('<hr style="margin: 10px 0 10px 0"/>');
+                            }
+                            loadImage(i, link);
                         }
                     }
                 });
+                
+                function loadImage(i, link)
+                {  
+                    $.ajax({
+                        type: "POST",
+                        url: "MetaTagReaderServlet",
+                        data: { link : link.textContent  }
+                      }).done(function( msg ) {  
+                            $("#img_" + i).attr("src", msg);
+                      });   
+                }
             }
             google.setOnLoadCallback(initialize);
-
+            
+           
         </script>
 
     </head>
@@ -61,9 +84,9 @@
                 <div class="row" style="margin: 0"> 
                 </div>
                 <div class="row" style="margin: 0">
-                    <div class="span6" style="margin: 0">
+                    <div class="span5" style="margin: 0">
                         <h4>Gisele Bündchen named as world's highest paid model (again)</h4>
-                        <p  style="text-align: justify; text-indent: 20px;">The Brazilian supermodel has been listed as the highest earning star in Forbes Magazine's annual review for the seventh year running. 
+                        <p>The Brazilian supermodel has been listed as the highest earning star in Forbes Magazine's annual review for the seventh year running. 
                             The 33-year-old model has certainly brought home the bacon over the past 12 months with an estimated combined salary of $42 million, as listed in the annual report into supermodel earnings by Forbes Magazine. 
                             Lucrative modeling contracts with H&M, Pantene, Oral-B and Sky HDTV and her role as the face of Chanel's 'Les Beiges' cosmetics line have all contributed to this enormous total. The figure dwarfs that of second placed supermodel, Australian Victoria's Secret star Miranda Kerr, who comes in at just over $7 million. 
                             Impressive as they are, Bündchen's latest earnings don't quite match last year's total of $45 million, which is perhaps accounted for by the time she took off to give birth to her youngest daughter Vivian, her second child with NFL quarterback Tom Brady. 
@@ -88,9 +111,9 @@
                             </form>
                         </div> 
                         <div class="">  
-                        </div>
+                        </div>  
                     </div>
-                    <div class="offset10 span2" style="margin: 0; text-align: justify;"> 
+                    <div class="offset9 span3" style="margin: 0; text-align: justify;"> 
                         <div id="feeddiv" class="feed-container">  
                             <p class="label label-info">PHCorner Feeds</p>
                             <a href="http://www.phcorner.net/" target="_blank"><li class="icon-check"></li></a><br/>
