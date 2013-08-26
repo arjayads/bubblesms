@@ -4,12 +4,14 @@
  */
 package sms.controllers;
 
+import java.io.File;
 import java.io.IOException; 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import java.net.URL;
+import javax.servlet.ServletException; 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import sms.service.MetaTagReader;
@@ -38,7 +40,11 @@ public class MetaTagReaderServlet extends HttpServlet {
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
         int lastIndexOf = responseURL.lastIndexOf("?");
-        response.getWriter().write(responseURL.substring(0, lastIndexOf));
+        String finalURL = responseURL.substring(0, lastIndexOf); 
+        File file = new File("resources/img/" + finalURL.substring(0, finalURL.lastIndexOf("/")));
+        URL imgURL = new URL(finalURL);
+        FileUtils.copyURLToFile(imgURL, file);
+        response.getWriter().write(file.getPath());
  
     }
 

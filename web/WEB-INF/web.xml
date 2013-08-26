@@ -4,11 +4,11 @@
     <servlet>
         <servlet-name>MetaTagReaderServlet</servlet-name>
         <servlet-class>sms.controllers.MetaTagReaderServlet</servlet-class>
-    </servlet>
+    </servlet> 
     <servlet-mapping>
         <servlet-name>MetaTagReaderServlet</servlet-name>
         <url-pattern>/MetaTagReaderServlet</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping> 
     <session-config>
         <session-timeout>
             30

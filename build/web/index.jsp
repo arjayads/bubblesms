@@ -51,7 +51,7 @@
                         type: "POST",
                         url: "MetaTagReaderServlet",
                         data: { link : link.textContent  }
-                      }).done(function( msg ) {  
+                      }).done(function( msg ) {   
                             $("#img_" + i).attr("src", msg);
                       });   
                 }
@@ -95,7 +95,7 @@
                     </div>
                     <div class="span4" style="padding-right: 5px;"> 
                         <div class="box pull-left">
-                            <form>
+                            <form id="sendform">
                                 <legend>Send free SMS to the Philippines!</legend>  
                                 <label for="mobile_no">Mobile No.</label>
                                 <div class="form-inline">
@@ -107,7 +107,9 @@
                                 <textarea  style="width: 19em; height: 10em;" name="message" placeholder="Type your message..."></textarea>
                                 <label id="char_left" class="label label-info">160 characters left.</label> 
                                 <label style="height: 5px">&nbsp;</label>
-                                <input type="submit" value="Send Message" id="send" class="btn btn-primary"/>
+                                <div><input type="submit" value="Send Message" id="send" class="btn btn-primary"/>  
+                                <label id="status"></label>
+                                </div>
                             </form>
                         </div> 
                         <div class="">  
